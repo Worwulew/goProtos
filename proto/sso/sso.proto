@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "worwulew.sso.v1;ssov1";
+
+service Auth {
+  rpc Register (registerRequest) returns (registerResponse);
+  rpc Login (loginRequest) returns (loginResponse);
+  rpc IsAdmin (isAdminRequest) returns (isAdminResponse);
+}
+
+message registerRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message registerResponse {
+  int64 user_id = 1;
+}
+
+message loginRequest {
+  string email = 1;
+  string password = 2;
+  int32 app_id = 3; // id of the application to login to
+}
+
+message loginResponse {
+  string token = 1; // jwt token
+}
+
+message isAdminRequest {
+  int64 user_id = 1;
+}
+
+message isAdminResponse {
+  bool isAdmin = 1;
+}
